@@ -1,0 +1,126 @@
+.customSelect {
+  position: relative;
+  width: 100%;
+  min-width: 200px;
+  user-select: none;
+}
+
+.selectTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 16px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: left;
+}
+
+.selectTrigger:hover {
+  border-color: var(--color-text-tertiary);
+  background: var(--color-surface-hover);
+}
+
+.selectTrigger.open {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-light);
+  background: var(--color-surface);
+}
+
+.triggerText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.icon {
+  color: var(--color-text-tertiary);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.iconOpen {
+  transform: rotate(180deg);
+  color: var(--color-accent);
+}
+
+.optionsWrapper {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 100%;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.wrapperOpen {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.optionsList {
+  list-style: none;
+  margin: 0;
+  padding: 8px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+/* Custom scrollbar for options */
+.optionsList::-webkit-scrollbar {
+  width: 6px;
+}
+.optionsList::-webkit-scrollbar-track {
+  background: transparent;
+}
+.optionsList::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 10px;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: var(--color-text);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.option:hover {
+  background: var(--color-surface-hover);
+}
+
+.option.selected {
+  background: var(--color-accent-light);
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.checkIcon {
+  color: var(--color-accent);
+  animation: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes scaleIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
