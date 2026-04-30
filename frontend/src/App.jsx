@@ -18,6 +18,7 @@ import AdminSupportPage from './pages/AdminSupportPage';
 import AboutPage from './pages/AboutPage';
 import FavoritesPage from './pages/FavoritesPage';
 import AdminOrdersPage from './pages/AdminOrdersPage';
+import MyOrdersPage from './pages/MyOrdersPage';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
                     <Route path="/about" element={<AboutPage />} />
                     <Route path="/favorites" element={<FavoritesPage />} />
                     <Route path="/admin/orders" element={<AdminOrdersPage />} />
+                    <Route path="/orders/my" element={<MyOrdersPage />} />
                   </Routes>
                 </main>
                 <Footer />

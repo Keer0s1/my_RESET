@@ -48,14 +48,24 @@ model Product {
   favorites   Favorite[]
 }
 
+enum OrderStatus {
+  pending
+  confirmed
+  assembling
+  shipped
+  delivered
+}
+
 model Order {
-  id           Int         @id @default(autoincrement())
-  userId       Int
-  user         User        @relation(fields: [userId], references: [id])
-  totalAmount  Float?
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  orderItems   OrderItem[]
+  id             Int         @id @default(autoincrement())
+  userId         Int
+  user           User        @relation(fields: [userId], references: [id])
+  totalAmount    Float?
+  status         OrderStatus @default(pending)
+  trackingNumber String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  orderItems     OrderItem[]
 }
 
 model OrderItem {

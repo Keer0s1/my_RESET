@@ -125,7 +125,7 @@ npm run dev
 
 Откройте http://localhost:5173
 
----
+
 
 ## 📝 Лицензия
 

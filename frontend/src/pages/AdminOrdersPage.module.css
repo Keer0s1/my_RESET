@@ -4,9 +4,7 @@
   animation: fadeIn 0.5s ease;
 }
 
-.header {
-  margin-bottom: 32px;
-}
+.header { margin-bottom: 32px; }
 
 .title {
   font-size: 32px;
@@ -58,9 +56,7 @@
   transition: border-color var(--transition-fast);
 }
 
-.orderCard:hover {
-  border-color: var(--color-border-hover);
-}
+.orderCard:hover { border-color: var(--color-border-hover); }
 
 .orderHeader {
   width: 100%;
@@ -76,34 +72,41 @@
   transition: background var(--transition-fast);
 }
 
-.orderHeader:hover {
-  background: rgba(255, 255, 255, 0.02);
-}
+.orderHeader:hover { background: rgba(255,255,255,0.02); }
 
 .orderInfo {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
+  flex-wrap: wrap;
 }
 
 .orderId {
   font-size: 18px;
   font-weight: 700;
-  color: var(--color-text);
   letter-spacing: -0.02em;
-  min-width: 60px;
+  min-width: 52px;
+}
+
+.statusBadge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
 }
 
 .orderMeta {
   display: flex;
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .metaItem {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 14px;
+  gap: 5px;
+  font-size: 13px;
   color: var(--color-text-secondary);
 }
 
@@ -112,6 +115,7 @@
   align-items: center;
   gap: 16px;
   color: var(--color-text-secondary);
+  flex-shrink: 0;
 }
 
 .orderTotal {
@@ -122,7 +126,7 @@
 
 .orderDetails {
   border-top: 1px solid var(--color-border);
-  padding: 16px 24px 20px;
+  padding: 20px 24px 24px;
   animation: slideDown 0.2s ease;
 }
 
@@ -132,10 +136,10 @@
   gap: 12px;
   padding-bottom: 12px;
   border-bottom: 1px solid var(--color-divider);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   color: var(--color-text-tertiary);
 }
 
@@ -145,29 +149,113 @@
   gap: 12px;
   padding: 12px 0;
   border-bottom: 1px solid var(--color-divider);
-  font-size: 15px;
+  font-size: 14px;
 }
 
-.itemName {
-  color: var(--color-text);
-  font-weight: 500;
+.itemName { color: var(--color-text); font-weight: 500; }
+.itemQty { color: var(--color-text-secondary); text-align: center; }
+.itemPrice { color: var(--color-text); font-weight: 600; text-align: right; }
+
+/* Admin controls */
+.adminControls {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.itemQty {
-  color: var(--color-text-secondary);
-  text-align: center;
-}
+.controlSection {}
 
-.itemPrice {
-  color: var(--color-text);
+.controlLabel {
+  font-size: 12px;
   font-weight: 600;
-  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-tertiary);
+  margin-bottom: 10px;
 }
+
+.statusSteps {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.stepBtn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.stepBtn:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.stepBtn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.stepDone {
+  background: rgba(34,197,94,0.08);
+  border-color: rgba(34,197,94,0.3) !important;
+  color: #22c55e !important;
+}
+
+.stepCurrent {
+  font-weight: 700;
+}
+
+/* Track number */
+.trackRow {
+  display: flex;
+  gap: 10px;
+}
+
+.trackInput {
+  flex: 1;
+  padding: 10px 16px;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  color: var(--color-text);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.18s;
+}
+
+.trackInput:focus { border-color: var(--color-accent); }
+.trackInput::placeholder { color: var(--color-text-tertiary); }
+
+.trackSaveBtn {
+  padding: 10px 20px;
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  white-space: nowrap;
+}
+
+.trackSaveBtn:hover:not(:disabled) { background: var(--color-accent-hover); }
+.trackSaveBtn:disabled { opacity: 0.6; cursor: not-allowed; }
 
 .detailsFooter {
-  padding-top: 12px;
+  padding-top: 16px;
+  margin-top: 4px;
   font-size: 13px;
   color: var(--color-text-tertiary);
+  border-top: 1px solid var(--color-divider);
 }
 
 @keyframes fadeIn {
@@ -176,22 +264,14 @@
 }
 
 @keyframes slideDown {
-  from { opacity: 0; max-height: 0; }
-  to { opacity: 1; max-height: 500px; }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @media (max-width: 768px) {
-  .orderInfo {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  .orderMeta {
-    flex-direction: column;
-    gap: 4px;
-  }
-  .detailsHeader,
-  .detailRow {
-    grid-template-columns: 1fr 60px 90px;
-  }
+  .orderInfo { gap: 10px; }
+  .orderMeta { flex-direction: column; gap: 4px; }
+  .detailsHeader, .detailRow { grid-template-columns: 1fr 60px 90px; }
+  .statusSteps { gap: 6px; }
+  .trackRow { flex-direction: column; }
 }

@@ -81,11 +81,53 @@ router.get('/:id', authenticate, async (req: AuthRequest, res: Response) => {
     }
     const order = await orderService.getOrderById(id);
     if (!order) return res.status(404).json({ error: 'Заказ не найден' });
-    if (order.userId !== req.user!.id) {
+
+    // Админ видит любой заказ, пользователь — только свой
+    const requestingUser = await prisma.user.findUnique({ where: { id: req.user!.id } });
+    if (requestingUser?.role !== 'admin' && order.userId !== req.user!.id) {
       return res.status(403).json({ error: 'Доступ запрещён' });
     }
     res.json(order);
   } catch (error) {
+    res.status(500).json({ error: 'Ошибка сервера' });
+  }
+});
+
+// PATCH /api/orders/:id/status — обновить статус и трек-номер (только админ)
+router.patch('/:id/status', authenticate, async (req: AuthRequest, res: Response) => {
+  try {
+    const requestingUser = await prisma.user.findUnique({ where: { id: req.user!.id } });
+    if (!requestingUser || requestingUser.role !== 'admin') {
+      return res.status(403).json({ error: 'Доступ запрещён' });
+    }
+
+    const id = parseInt(req.params.id as string, 10);
+    if (isNaN(id)) return res.status(400).json({ error: 'Неверный ID' });
+
+    const { status, trackingNumber } = req.body;
+
+    const validStatuses = ['pending', 'confirmed', 'assembling', 'shipped', 'delivered'];
+    if (status && !validStatuses.includes(status)) {
+      return res.status(400).json({ error: 'Неверный статус' });
+    }
+
+    const updated = await prisma.order.update({
+      where: { id },
+      data: {
+        ...(status && { status }),
+        ...(trackingNumber !== undefined && { trackingNumber }),
+      },
+      include: {
+        user: { select: { id: true, username: true, email: true } },
+        orderItems: { include: { product: true } },
+      },
+    });
+
+    res.json(updated);
+  } catch (error: any) {
+    if (error.code === 'P2025') {
+      return res.status(404).json({ error: 'Заказ не найден' });
+    }
     res.status(500).json({ error: 'Ошибка сервера' });
   }
 });

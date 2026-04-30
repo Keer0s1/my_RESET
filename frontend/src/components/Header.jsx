@@ -60,6 +60,13 @@ const Header = () => {
             </Link>
           )}
 
+          {user?.role !== 'admin' && user && (
+            <Link to="/orders/my" className={styles.navLink} onClick={closeMenu}>
+              <Package className={styles.navIcon} strokeWidth={1.5} />
+              <span className={styles.navText}>Мои заказы</span>
+            </Link>
+          )}
+
           {user?.role === 'admin' && (
             <Link to="/admin/orders" className={styles.navLink} onClick={closeMenu}>
               <Package className={styles.navIcon} strokeWidth={1.5} />
